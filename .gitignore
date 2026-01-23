@@ -8,3 +8,7 @@
 ^dev_docs
 inst/doc
 model_cache
+docs/
+vignettes/*_cache/
+
+/.quarto/

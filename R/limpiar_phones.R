@@ -52,23 +52,23 @@
 #'
 #' # Default example
 #' phone_examples %>% 
-#'   limpiar_phones(text_var = text_var, aggressive = FALSE) %>% 
+#'   limpiar_phone_numbers(text_var = text_var, aggressive = FALSE) %>% 
 #'   dplyr::select(text_var)
 #'
 #' # More aggressive version, catching sequences of digits between 7-15 in length
 #' phone_examples %>% 
-#'   limpiar_phones(text_var = text_var, aggressive = TRUE) %>% 
+#'   limpiar_phone_numbers(text_var = text_var, aggressive = TRUE) %>% 
 #'   dplyr::select(text_var)
 #' 
 #' # Filter out rows containing phone numbers
 #' phone_examples %>% 
-#'   limpiar_phones(text_var = text_var, aggressive = FALSE) %>% 
+#'   limpiar_phone_numbers(text_var = text_var, aggressive = FALSE) %>% 
 #'   dplyr::filter(phone_number_flag == FALSE) %>% 
 #'   dplyr::select(id, text_var)
 #'
 #' @export
 #'
-limpiar_phones <- function(df, 
+limpiar_phone_numbers <- function(df, 
                                    text_var = mention_content, 
                                    aggressive = TRUE,
                                    tag = "None") {

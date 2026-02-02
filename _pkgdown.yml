@@ -94,7 +94,7 @@ reference:
   - limpiar_duplicates
   - limpiar_retweets
   - limpiar_spam_grams
-  - limpiar_phones
+  - limpiar_phone_numbers
 
 - title: Utility Functions
   desc: >

@@ -79,7 +79,7 @@ output_example_1d <- tibble::tibble(
 # Tests
 test_that("Example test", {
   # test example behaviour
-  output <- limpiar_phones(
+  output <- limpiar_phone_numbers(
     input_example_1,
     text_var = text_var,
     aggressive = FALSE,
@@ -90,7 +90,7 @@ test_that("Example test", {
 
 test_that("Agressive test", {
   # test aggressive works as expected
-  output <- limpiar_phones(
+  output <- limpiar_phone_numbers(
     input_example_1,
     text_var = text_var,
     aggressive = TRUE,
@@ -103,7 +103,7 @@ test_that("Agressive test", {
 
 test_that("No tag test", {
   # Test that no-tag behaviour is expected
-  output <- limpiar_phones(
+  output <- limpiar_phone_numbers(
     input_example_1,
     text_var = text_var
   );
@@ -112,7 +112,7 @@ test_that("No tag test", {
 
 test_that("Data input test", {
   # Test that data exists
-  expect_error(limpiar_phones(
+  expect_error(limpiar_phone_numbers(
     "string",
     text_var = text_var,
     aggressive = FALSE,
@@ -122,7 +122,7 @@ test_that("Data input test", {
 
 test_that("text_var input test", {
   # Test that text_var exists as a column
-  expect_error(limpiar_phones(
+  expect_error(limpiar_phone_numbers(
     input_example_1,
     text_var = "not_a_column",
     aggressive = FALSE,
@@ -132,7 +132,7 @@ test_that("text_var input test", {
 
 test_that("Agressive input test", {
   # Test that aggressive must be a bool
-  expect_error(limpiar_phones(
+  expect_error(limpiar_phone_numbers(
     input_example_1,
     text_var = text_var,
     aggressive = "string",
@@ -142,7 +142,7 @@ test_that("Agressive input test", {
 
 test_that("text input as string test", {
   # test example behaviour
-  output <- limpiar_phones(
+  output <- limpiar_phone_numbers(
     input_example_1,
     text_var = "text_var",
     aggressive = FALSE,

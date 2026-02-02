@@ -142,3 +142,14 @@ test_that("Agressive input test", {
     remove = FALSE
   ));
 })
+
+test_that("text input as string test", {
+  # test example behaviour
+  output <- limpiar_phones(
+    input_example_1,
+    text_var = "text_var",
+    aggressive = FALSE,
+    tag = "phone_number"
+  );
+  expect_equal(output, output_example_1a);
+})

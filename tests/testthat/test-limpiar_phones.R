@@ -116,9 +116,8 @@ test_that("Data input test", {
     "string",
     text_var = text_var,
     aggressive = FALSE,
-    tag = "phone_number",
-    remove = FALSE
-  ));
+    tag = "phone_number"
+  ), regexp = "'df' must be a data.frame or tibble, but got type: character");
 })
 
 test_that("text_var input test", {
@@ -127,9 +126,8 @@ test_that("text_var input test", {
     input_example_1,
     text_var = "not_a_column",
     aggressive = FALSE,
-    tag = "phone_number",
-    remove = FALSE
-  ));
+    tag = "phone_number"
+  ), regexp = "object 'not_a_column' not found");
 })
 
 test_that("Agressive input test", {
@@ -138,9 +136,8 @@ test_that("Agressive input test", {
     input_example_1,
     text_var = text_var,
     aggressive = "string",
-    tag = "phone_number",
-    remove = FALSE
-  ));
+    tag = "phone_number"
+  ), regexp = "Parameter 'aggressive' must be logical");
 })
 
 test_that("text input as string test", {

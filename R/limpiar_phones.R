@@ -52,13 +52,19 @@
 #'
 #' # Default example
 #' phone_examples %>% 
-#'   limpiar_phones(text_var = text_var) %>% 
+#'   limpiar_phones(text_var = text_var, aggressive = FALSE) %>% 
 #'   dplyr::select(text_var)
 #'
 #' # More aggressive version, catching sequences of digits between 7-15 in length
 #' phone_examples %>% 
 #'   limpiar_phones(text_var = text_var, aggressive = TRUE) %>% 
 #'   dplyr::select(text_var)
+#' 
+#' # Filter out rows containing phone numbers
+#' phone_examples %>% 
+#'   limpiar_phones(text_var = text_var, aggressive = FALSE) %>% 
+#'   dplyr::filter(phone_number_flag == FALSE) %>% 
+#'   dplyr::select(id, text_var)
 #'
 #' @export
 #'
@@ -67,11 +73,29 @@ limpiar_phones <- function(df,
                                    aggressive = TRUE,
                                    tag = "None") {
   
+  # check data exists and is correct type
+  if (!is.data.frame(df)) {
+    stop("'df' must be a data.frame or tibble, but got type: ",
+         class(df)[1])
+  }
+
+  # check aggressive is logical
+  if (!is.logical(aggressive)) {
+    stop("Parameter 'aggressive' must be logical (TRUE/FALSE), but got type: ",
+         class(aggressive)[1])
+  }
+
+  # check tag exists and is a string
+  if (!is.character(tag) || length(tag) != 1) {
+    stop("Parameter 'tag' must be a single character string, but got type: ",
+        class(tag)[1])
+  }
+
   # handle both quoted and unquoted column names
-  text_var <- rlang::ensym(text_var)
+  text_sym <- rlang::ensym(text_var)
 
   # check text var is correct type
-  col_data <- dplyr::pull(df, {{ text_var }})
+  col_data <- dplyr::pull(df, !!text_sym)
   
   if (!is.character(col_data)) {
     stop("Parameter 'text_var' must be a character vector (string type), but got type: ",
@@ -140,14 +164,14 @@ limpiar_phones <- function(df,
     # if tag not changed from default value, only create flag column
     df <- df %>%
       dplyr::mutate(
-        phone_number_flag = stringr::str_detect(!!text_var, full_pattern)
+        phone_number_flag = stringr::str_detect(!!text_sym, full_pattern)
       )
   } else {
     # create flag column and replace phone numbers with tag
     df <- df %>%
       dplyr::mutate(
-        phone_number_flag = stringr::str_detect(!!text_var, full_pattern),
-        !!text_var := stringr::str_replace_all(!!text_var, full_pattern, tag)
+        phone_number_flag = stringr::str_detect(!!text_sym, full_pattern),
+        !!text_sym := stringr::str_replace_all(!!text_sym, full_pattern, tag)
       )
   }
   
